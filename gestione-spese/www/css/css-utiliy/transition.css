@@ -1,0 +1,39 @@
+/* La pagina attiva dentro app-content */
+.page-view {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  will-change: opacity, transform;
+}
+
+/* Stato di uscita (la pagina che se ne va) */
+.page-leave {
+  opacity: 0;
+  transform: translateX(-10px); /* leggero slide a sinistra */
+}
+
+/* Stato di ingresso (appena messa nel DOM prima della transizione) */
+.page-enter {
+  opacity: 0;
+  transform: translateX(10px); /* parte un pelo spostata a destra */
+}
+
+/* Quando parte l'animazione di ingresso */
+.page-enter.page-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.page-view.page-enter-active {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}

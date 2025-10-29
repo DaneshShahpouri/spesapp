@@ -1,0 +1,139 @@
+* {
+  -webkit-tap-highlight-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-page: #ffffff;
+  --bg-nav: #f5f5f540;
+  --bg-menu-mobile: #d6eaefe0;
+  --bg-body: linear-gradient(to top, #d9e9df 0%, #b1c6ce 51%);
+
+  --color-shadow: #00000042;
+  --text-shadow: 1px 1px 2px black;
+  --box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.29);
+  --text-main-activate: #057ea5;
+  --text-main-activate-transparency: #057da574;
+  --text-main-nav: #758795;
+
+  --opacity-icon-page: 0.15;
+
+  --bg-card: #ffffff66;
+  --bg-card-gradient: linear-gradient(40deg, #ffffff2e, #cecece0f);
+  --text-main: #565656;
+  --accent: #184729;
+
+  --color-loader: #1a1a1a;
+  --bg-hover-header: rgba(14, 83, 144, 0.085);
+
+  --border-slider-darkmode: rgba(50, 50, 50, 0.147);
+}
+
+/* darkmode manuale */
+body.dark {
+  --bg-page: #0f172a;
+  --bg-nav: #070b11;
+  --bg-menu-mobile: #111111e0;
+  --bg-menu-mobile: radial-gradient(#06080ae3, #06080af7 60%);
+  --bg-body: linear-gradient(to bottom, #081420 0%, #131313 51%);
+
+  --color-shadow: #00000042;
+  --text-shadow: 0px 0px 0px transparent;
+  --box-shadow: 0px 0px 0px transparent;
+  --text-main-activate: #00a6ff;
+  --text-main-activate-transparency: #00a6ff71;
+  --text-main-nav: #bbbbbb;
+
+  --opacity-icon-page: 0.05;
+
+  --bg-card: #1a263970;
+  --bg-card-gradient: linear-gradient(40deg, #1a263970, #1a26391c);
+  --text-main: #d7d7d7;
+  --accent: #4ade80;
+
+  --color-loader: #d5d5d5;
+  --bg-hover-header: rgba(240, 248, 255, 0.085);
+
+  --border-slider-darkmode: rgba(197, 197, 197, 0.147);
+}
+
+/* tema dark automatico */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --bg-body: linear-gradient(to bottom, #1f1f1f 0%, #6c6c6c 51%);
+    --text-color: #f8f8f8;
+  }
+} */
+
+body {
+  -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+  -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+  background: var(--bg-body);
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", sans-serif;
+
+  font-size: 12px;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  /* Padding to avoid the "unsafe" areas behind notches in the screen */
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+
+  width: 100%;
+  /*text-shadow: var(--text-shadow); */
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Portrait layout (default) */
+.app {
+  position: relative;
+  left: 0;
+  top: 0;
+  height: calc(100vh - 80px);
+  width: 100%;
+  text-align: center;
+  /* padding: 180px 0px 0px 0px; */
+  /* margin: -115px 0px 0px -112px; */
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--text-main);
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+  .app {
+    background-position: left center;
+
+    /* offset horizontal: half of image width and text area width */
+  }
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 0px;
+  overflow: visible;
+  padding: 0px;
+  text-align: center;
+  text-shadow: 1px 1px 2px var(--color-shadow);
+}

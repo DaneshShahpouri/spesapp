@@ -1,0 +1,205 @@
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/*                                                    QUERY PRECISE
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* ───────────────
+   Extra small phones
+   Esempi: 320x480, 360x640
+   ─────────────── */
+@media (max-width: 359.98px) {
+  /* ... */
+}
+
+/* Piccoli telefoni standard (iPhone SE vecchi, Android piccoli) */
+@media (min-width: 360px) and (max-width: 399.98px) {
+  /* ... */
+}
+
+/* Telefoni "normali" (iPhone 12/13/14 base in portrait, Galaxy S) */
+@media (min-width: 400px) and (max-width: 479.98px) {
+  /* ... */
+}
+
+/* Telefoni grandi / piccoli phablet (iPhone Pro Max portrait) */
+@media (min-width: 480px) and (max-width: 575.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   Small devices / Portrait tablets piccoli
+   tipo tablet 7", telefoni in landscape
+   breakpoint classico bootstrap: <576
+   ─────────────── */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   Medium devices / Tablet verticali
+   iPad portrait classico (768), Surface Go portrait
+   ─────────────── */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   Large devices / Tablet orizzontali e laptop piccoli
+   iPad landscape, notebook 11"-13"
+   ─────────────── */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   Extra Large / Desktop standard full HD < 1200-1399
+   laptop 14"-15", monitor 1080p "normali"
+   ─────────────── */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   2K-ish / Large desktop
+   Monitor grandi 1440p, ultrawide medio
+   ─────────────── */
+@media (min-width: 1400px) and (max-width: 1679.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   XXL / 1080p ultrawide, 1440p larghi
+   ─────────────── */
+@media (min-width: 1680px) and (max-width: 1919.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   Full HD wide / 2K wide / 4K "scalato"
+   1920 in su
+   ─────────────── */
+@media (min-width: 1920px) and (max-width: 2559.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   2.5K-4K desktop grossi / ultrawide 34"
+   ─────────────── */
+@media (min-width: 2560px) and (max-width: 3839.98px) {
+  /* ... */
+}
+
+/* ───────────────
+   4K nativo e oltre
+   ─────────────── */
+@media (min-width: 3840px) {
+  /* ... */
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/*                                                    QUERY VELOCI
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* Tutto sotto i 1920 (classico full HD) */
+@media (max-width: 1920px) {
+  /* ... */
+}
+
+/* Schermi larghi ma non ultralarge */
+@media (max-width: 1680px) {
+  /* ... */
+}
+
+/* Desktop standard */
+@media (max-width: 1400px) {
+  /* ... */
+}
+
+/* Laptop medi */
+@media (max-width: 1200px) {
+  /* ... */
+}
+
+/* Tablet landscape / laptop piccoli */
+@media (max-width: 992px) {
+  /* ... */
+}
+
+/* Tablet portrait */
+@media (max-width: 768px) {
+  nav > .wwrapper-btn > button > span {
+    display: none;
+  }
+
+  nav > .wwrapper-btn > button i {
+    margin-right: 0px;
+    font-size: 24px;
+  }
+}
+
+/* Phablet / small tablet portrait */
+@media (max-width: 576px) {
+}
+
+/* Telefoni normali */
+@media (max-width: 480px) {
+  #btnMenu {
+    display: flex;
+    font-size: 28px;
+  }
+  nav {
+    position: relative;
+  }
+  nav > .wwrapper-btn {
+    width: 100%;
+    height: 0px;
+    padding: 0;
+    background: var(--bg-menu-mobile);
+    flex-direction: column;
+
+    position: absolute;
+    top: 80px;
+    left: 0px;
+    z-index: 99;
+
+    box-shadow: var(--box-shadow);
+    transition: all 0.2s;
+
+    overflow: hidden;
+  }
+
+  nav > .wwrapper-btn.open {
+    width: 100%;
+    height: 200px;
+
+    overflow: visible;
+  }
+
+  nav > .wwrapper-btn > button {
+    flex-direction: column;
+    gap: 0.3em;
+    width: 100%;
+  }
+
+  nav > .wwrapper-btn > button > span {
+    display: flex !important;
+    padding: 0px !important;
+    font-size: 0.8em !important;
+  }
+
+  .title-icon {
+    font-size: 34em;
+    bottom: 18vh;
+  }
+}
+
+/* Telefoni piccolissimi */
+@media (max-width: 360px) {
+  .title-icon {
+    font-size: 26em;
+    bottom: 15vh;
+  }
+}

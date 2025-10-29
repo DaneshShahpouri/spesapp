@@ -1,0 +1,100 @@
+@keyframes intro_scritta {
+  from {
+    opacity: 0;
+    margin-bottom: 5px;
+  }
+  20% {
+    opacity: 0;
+    margin-bottom: 5px;
+  }
+
+  to {
+    opacity: 1;
+    margin-bottom: 0px;
+  }
+}
+@keyframes intro_status {
+  from {
+    opacity: 0;
+    margin-top: 5px;
+  }
+  20% {
+    opacity: 0;
+    margin-top: 5px;
+  }
+
+  to {
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
+ {
+  position: relative;
+  display: inline-block;
+  color: #fff; /* colore testo, cambia se vuoi */
+  font-weight: 600;
+}
+
+/* il bagliore */
+.click-ripple-glow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.5em; /* parte piccolo */
+  height: 0.5em;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* quando aggiungi la classe .ripple-active parte l'animazione */
+.click-ripple-glow.ripple-active::after {
+  animation: ripple-glow 400ms ease-out forwards;
+}
+
+@keyframes ripple-glow {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  30% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.6;
+    filter: blur(4px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.5);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+@keyframes circle-impostazioni {
+  0% {
+    transform: rotate(64deg);
+  }
+  4% {
+    transform: rotate(64deg);
+  }
+  30% {
+    transform: rotate(50deg); /* indietro piano */
+  }
+  40% {
+    transform: rotate(370deg); /* grande scatto avanti */
+  }
+  60% {
+    transform: rotate(390deg); /* inerzia finale slow */
+  }
+  100% {
+    transform: rotate(1144deg);
+  }
+}
