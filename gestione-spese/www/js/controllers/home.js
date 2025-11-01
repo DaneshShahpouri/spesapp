@@ -4,6 +4,29 @@ function renderHomePage() {
 
   initSettingsPage_camera();
 
-  console.log("db", db);
-  //document.getElementById("nomeContatto_benvenuto").inner;
+  const el_inputnome = document.getElementById("nomeContatto_benvenuto");
+  if (el_inputnome) {
+    // leggo dal tuo stato globale (popolato in initApp -> readAllInitialData)
+    const nome = CURRENT_APP_DATA?.settings?.nome || "";
+    console.log(CURRENT_APP_DATA.settings);
+    if (nome && nome.length > 0) {
+      el_inputnome.value = nome; // <-- value, non innerText
+    }
+
+    el_inputnome.addEventListener("input", async () => {
+      const nuovo_valore = el_inputnome.value.trim();
+      try {
+        // salva nello store settings in modo coerente con theme: { value: ... }
+        await saveGenericData(STORE_SETTINGS, "nomeUtente", {
+          value: nuovo_valore,
+        });
+        // aggiorna anche lo stato in RAM per riflettere subito il cambiamento
+        CURRENT_APP_DATA.settings.nome = nuovo_valore;
+        console.log("Salvato nomeUtente:", nuovo_valore);
+        console.log("dvb:", db);
+      } catch (e) {
+        console.error("Errore salvataggio nomeUtente:", e);
+      }
+    });
+  }
 }

@@ -5,7 +5,13 @@
   <div class="top-bar _card _col-6">
     <div class="profile-photo">
       <div class="welcome">
-        <span>Benvenuto <b id="nomeContatto_benvenuto"></b></span>
+        <input
+          id="nomeContatto_benvenuto"
+          class="nomecontatto"
+          type="text"
+          placeholder="Nome Contatto"
+          value=""
+        />
       </div>
       <!-- wrapper all -->
       <div class="_wrapper-img-btns">
@@ -22,7 +28,7 @@
           Scegli dalla galleria
         </button>
         <button class="btn_account" id="btnRemovePhoto">
-          <i class="fa-solid fa-circle-minus"></i>
+          <i class="fa-solid fa-minus"></i>
         </button>
       </div>
       <!-- fine wrapper -->
@@ -36,79 +42,4 @@
   </div>
 </div>
 
-<style>
-  #account-settings ._wrapper-img {
-    width: 110px;
-    height: 110px;
-    margin: 0.5em auto;
-    border: 1px solid grey;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 50%;
-    position: relative;
-  }
-  #account-settings ._wrapper-img > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  #account-settings ._wrapper-img-btns {
-    width: 110px;
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-  }
-
-  #account-settings ._wrapper-img-btns .btn_account {
-    position: absolute;
-  }
-  #account-settings ._wrapper-img-btns #btnTakePhoto {
-    display: flex;
-    left: 0px;
-    bottom: -30px;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #ffffff40;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    z-index: 21;
-  }
-  #account-settings ._wrapper-img-btns #btnPickPhoto {
-    top: 50%;
-    width: 110px;
-    height: 110px;
-    overflow: hidden;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    z-index: 20;
-    opacity: 0;
-  }
-  #account-settings ._wrapper-img-btns #btnRemovePhoto {
-    top: 30px;
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    left: 110px;
-    z-index: 20;
-    background: #ff000094;
-    display: flex;
-    border: 2px solid red;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    color: #000000bd;
-  }
-</style>
+<style></style>

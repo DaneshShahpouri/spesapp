@@ -26,6 +26,7 @@ function buildInitialAppData(speseArray, settingsObj) {
 
     settings: {
       theme: settingsObj && settingsObj.theme ? settingsObj.theme : "light",
+      nome: (settingsObj && settingsObj.nome) || "",
     },
   };
 }
@@ -206,21 +207,19 @@ function getSettings(db) {
     const tx = db.transaction(STORE_SETTINGS, "readonly");
     const store = tx.objectStore(STORE_SETTINGS);
 
-    // es: chiave "theme" → "dark"
-    const req = store.get("theme");
+    const out = { theme: "light", nome: "" };
 
-    req.onsuccess = (event) => {
-      const record = event.target.result;
-      const settings = {
-        // se non esiste ancora, fallback "light"
-        theme: record ? record.value : "light",
-      };
-      resolve(settings);
+    store.get("theme").onsuccess = (e) => {
+      const r = e.target.result;
+      if (r && typeof r.value !== "undefined") out.theme = r.value;
+    };
+    store.get("nomeUtente").onsuccess = (e) => {
+      const r = e.target.result;
+      if (r && typeof r.value !== "undefined") out.nome = r.value;
     };
 
-    req.onerror = (err) => {
-      reject(err);
-    };
+    tx.oncomplete = () => resolve(out);
+    tx.onerror = (err) => reject(err);
   });
 }
 
@@ -584,6 +583,7 @@ function saveGenericData(storeName, key, value) {
 
     try {
       // 2) transazione readwrite sullo store
+      console.log("provo");
       const tx = db.transaction(storeName, "readwrite");
       const store = tx.objectStore(storeName);
 
