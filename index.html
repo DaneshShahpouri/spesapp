@@ -28,17 +28,28 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
-    />
+
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta
       name="viewport"
       content="initial-scale=1, width=device-width, viewport-fit=cover"
     />
+
     <meta name="color-scheme" content="light dark" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src 'self' data: blob: gap: https://ssl.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com 'unsafe-eval' 'unsafe-inline';
+    img-src 'self' data: blob: filesystem: content:;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' data: https://fonts.gstatic.com;
+    connect-src 'self' https://* http://*;
+    media-src *;
+  "
+    />
+    <link rel="icon" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="css/loader.css" />
@@ -54,6 +65,7 @@
   <body>
     <div id="app-header"></div>
 
+    <!-- SCHERMATA INIZIALE CARICAMENTO -->
     <main id="app-content" class="app">
       <div class="page-view intro">
         <h1>N<b class="o_class">o</b>MISMA</h1>
@@ -71,14 +83,14 @@
 
     <script src="cordova.js"></script>
 
+    <!-- Funzioni core app (IndexedDB, routing, init, ecc.) -->
+    <script src="js/func.js"></script>
+    <script src="js/func-camera.js"></script>
+
     <!-- JS delle pagine specifiche -->
     <script src="js/controllers/home.js"></script>
     <script src="js/controllers/mese.js"></script>
     <script src="js/controllers/settings.js"></script>
-
-    <!-- Funzioni core app (IndexedDB, routing, init, ecc.) -->
-    <script src="js/func.js"></script>
-    <script src="js/func_camera.js"></script>
 
     <!-- Bootstrap dell'app -->
     <script src="js/index.js"></script>

@@ -127,9 +127,9 @@ function onDeviceReady() {
   return initApp();
 }
 
-// ---------------------------------------------
-// IndexedDB helpers
-// ---------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+//                                                                IndexedDB helpers
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Apre (o crea) il DB basandosi su DB_CONFIG
 function openDB() {
@@ -224,9 +224,9 @@ function getSettings(db) {
   });
 }
 
-// ---------------------------------------------
-// NAVIGAZIONE PAGINE
-// ---------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
+//                                                                NAVIGAZIONE PAGINE
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 function navigateTo(pageName) {
   if (APP_DEBUG.SHOWCONSOLELOG) {
@@ -547,8 +547,8 @@ function saveThemePreference(theme) {
       document.body.classList.add(theme);
 
       if (APP_DEBUG.SHOWCONSOLELOG) {
-        console.log("[saveThemePreference] Tema salvato:", theme);
       }
+      console.log("[saveThemePreference] Tema salvato:", theme);
 
       resolve(theme);
     };
@@ -564,8 +564,53 @@ function saveThemePreference(theme) {
 
 //Chiude il menu a tendina della navbar
 function chiudiMenu(el) {
-  console.log("parte chiudi menu", el);
   if (IS_MOBILE && el.classList.contains("open")) {
     el.classList.remove("open");
   }
+}
+
+// Salva un dato generico in IndexedDB: (storeName, key, value)
+// - storeName: nome dello store (tabella) già esistente
+// - key: chiave del record
+// - value: valore da salvare (qualsiasi tipo serializzabile)
+function saveGenericData(storeName, key, value) {
+  return new Promise((resolve, reject) => {
+    // 1) sicurezza: DB aperto?
+    if (!window._dbHandle) {
+      return reject(new Error("DB non inizializzato (_dbHandle mancante)"));
+    }
+
+    const db = window._dbHandle;
+
+    try {
+      // 2) transazione readwrite sullo store
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
+
+      // 3) put: inserisce o aggiorna il record (key fuori-linea)
+      const req = store.put(value, key);
+
+      req.onsuccess = () => {
+        if (APP_DEBUG && APP_DEBUG.SHOWCONSOLELOG) {
+          console.log(`[saveGenericData] Salvato su "${storeName}"`, {
+            key,
+            value,
+          });
+        }
+        resolve({ store: storeName, key, value });
+      };
+
+      req.onerror = (err) => {
+        if (APP_DEBUG && APP_DEBUG.SHOWCONSOLELOG) {
+          console.error(
+            `[saveGenericData] Errore salvataggio su "${storeName}"`,
+            err
+          );
+        }
+        reject(err);
+      };
+    } catch (err) {
+      reject(err);
+    }
+  });
 }

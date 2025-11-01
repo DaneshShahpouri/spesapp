@@ -4,15 +4,15 @@
 
 const DB_CONFIG = {
   name: "DB_SPESE",
-  version: 2,
+  version: 3, // ⚠️ aumenta la versione per forzare onupgradeneeded()
 
   stores: {
     spese: {
       name: "spese",
       options: { keyPath: "id", autoIncrement: true },
       sampleShape: {
-        data: "2025-10-26", // "YYYY-MM-DD"
-        ora: "11:45:36", // "HH:mm:ss"
+        data: "2025-10-26",
+        ora: "11:45:36",
         categoria: "cibo",
         importo: 12.5,
         descrizione: "caffe e amaro",
@@ -22,12 +22,19 @@ const DB_CONFIG = {
 
     settings: {
       name: "settings",
-      // niente keyPath -> chiave manuale (es. "theme")
       options: { autoIncrement: false },
       sampleShape: {
-        // esempio record salvato:
-        // key: "theme"
-        // value: "dark"
+        theme: "dark",
+      },
+    },
+
+    // ✅ aggiungi questo blocco:
+    profile: {
+      name: "profile",
+      options: { autoIncrement: false },
+      sampleShape: {
+        avatarPath:
+          "file:///storage/emulated/0/Android/data/app/avatar_123.jpg",
       },
     },
   },
@@ -35,7 +42,11 @@ const DB_CONFIG = {
 
 // alias
 const STORE_SETTINGS = DB_CONFIG.stores.settings.name;
+// Costanti per lo store e la chiave in IndexedDB
 
+const STORE_PROFILE = DB_CONFIG.stores.profile.name;
+// crea/garantisci questo store in openDB()
+const KEY_AVATAR_PATH = "avatarPath"; // salveremo qui il path locale
 // comodo alias per evitare stringhe magiche nel codice
 const STORE_SPESE = DB_CONFIG.stores.spese.name;
 

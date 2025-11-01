@@ -76,6 +76,18 @@
   height: calc(100vh - 50px);
   align-items: flex-start;
 }
+._container {
+  padding: 1em;
+  max-width: 1600px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0em auto;
+  height: calc(100vh - 50px);
+  align-items: flex-start;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 1em;
+}
 
 ._card {
   padding: 1.2em;
@@ -88,6 +100,12 @@
   font-size: 18px;
   background: var(--bg-card);
   border-radius: 10px;
+}
+
+._wrapper-img.rounded {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------- */
