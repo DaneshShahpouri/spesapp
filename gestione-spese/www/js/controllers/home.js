@@ -19,13 +19,22 @@ function renderHomePage() {
 
     SetData();
 
+    // home.js
+
     function SetData() {
       const data = getDateInfo_start();
       data_corrente = data;
-      console.log("⏰", data.stringaCompleta);
+      const el = document.getElementById("footer-date"); // esempio
+      if (!el) return; // se la pagina non è pronta, esci silenziosamente
+      el.innerText = data.stringaCompleta;
+    }
 
-      //IMPOSTO DATA E ORA
-      document.getElementById("footer-date").innerText = data.stringaCompleta;
+    function renderHomePage() {
+      // usa requestAnimationFrame per assicurarti che la page-view sia nel DOM definitivo
+      requestAnimationFrame(() => {
+        SetData();
+        // se hai timers/intervals, valuta di (ri)istanziare solo se non già attivi
+      });
     }
 
     //Nome Utente - Logica

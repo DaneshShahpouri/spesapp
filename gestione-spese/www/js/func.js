@@ -235,6 +235,19 @@ function getSettings(db) {
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
 //                                                                NAVIGAZIONE PAGINE
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
+const ROUTES = [PAG1, PAG2, PAG3]; // ["home","mese","settings"]
+
+function routeIndex(name) {
+  return ROUTES.indexOf(name);
+}
+function nextRoute(name) {
+  const i = routeIndex(name);
+  return i >= 0 && i < ROUTES.length - 1 ? ROUTES[i + 1] : null;
+}
+function prevRoute(name) {
+  const i = routeIndex(name);
+  return i > 0 ? ROUTES[i - 1] : null;
+}
 
 function navigateTo(pageName) {
   if (APP_DEBUG.SHOWCONSOLELOG) {
@@ -406,6 +419,214 @@ function loadComponent(targetSelector, componentPath) {
       }
     });
 }
+function setupSwipeNavigation() {
+  // Abilita solo su mobile
+  try {
+    IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  } catch (_) {}
+
+  if (!IS_MOBILE) return;
+
+  const container = document.querySelector("#app-content");
+  if (!container) return;
+
+  const THRESHOLD = 60; // px per considerare "swipe valido"
+  const VELOCITY_BREAK = 0.35; // (px/ms) opzionale per swipe veloce
+  let startX = 0;
+  let startT = 0;
+  let dragging = false;
+  let dir = 0; // -1 = verso dx (pagina precedente), +1 = verso sx (pagina successiva)
+  let targetPage = null;
+  let currentEl = null;
+  let nextEl = null;
+  let width = 0;
+
+  // Precarica html pagina target
+  const fetchPage = (pageName) => {
+    const path = `components/main/page-${pageName}.html`;
+    return fetch(path).then((r) => r.text());
+  };
+
+  const attachNextLayer = (html, initialX) => {
+    nextEl = document.createElement("div");
+    nextEl.className = "page-view swipe-layer";
+    nextEl.innerHTML = html;
+
+    // posiziona off-screen a sinistra (dir=+1, prossima) o a destra (dir=-1, precedente)
+    const offset = initialX;
+    nextEl.style.transform = `translateX(${offset}px)`;
+    container.appendChild(nextEl);
+
+    // lancia controller della pagina target (subito, così vedi componenti)
+    try {
+      if (typeof runPageController === "function") {
+        runPageController(targetPage);
+      }
+    } catch (e) {
+      if (APP_DEBUG.SHOWCONSOLELOG) {
+        console.warn("[swipe] runPageController error:", e);
+      }
+    }
+  };
+
+  // dentro setupSwipeNavigation()
+
+  const cleanupAndCommit = (commit) => {
+    if (!dragging) return;
+    dragging = false;
+
+    const hasBoth = currentEl && nextEl;
+    const doCommit = commit && hasBoth;
+
+    const done = () => {
+      if (doCommit) {
+        // Promuovi la nuova pagina a DOM "reale"
+        container.innerHTML = "";
+        const committed = document.createElement("div");
+        committed.className = "page-view";
+        committed.innerHTML = nextEl.innerHTML;
+        container.appendChild(committed);
+
+        APP_ROUTE = targetPage;
+        highlightActiveNav(APP_ROUTE);
+
+        // 🔁 re-init della pagina sul DOM definitivo
+        try {
+          if (typeof runPageController === "function") {
+            runPageController(APP_ROUTE);
+          }
+        } catch (e) {
+          if (APP_DEBUG.SHOWCONSOLELOG)
+            console.warn("[swipe] re-init error:", e);
+        }
+      } else {
+        // rollback o caso senza nextEl
+        if (nextEl && nextEl.parentNode) nextEl.parentNode.removeChild(nextEl);
+        if (currentEl) currentEl.style.transform = "translateX(0px)";
+      }
+
+      // pulizia
+      currentEl = container.querySelector(".page-view");
+      nextEl = null;
+      targetPage = null;
+      dir = 0;
+    };
+
+    if (!hasBoth) return done(); // niente animazioni, chiudi pulito
+
+    // animazione finale
+    currentEl.style.transition = "transform 180ms ease-out";
+    nextEl.style.transition = "transform 180ms ease-out";
+    currentEl.style.transform = doCommit
+      ? `translateX(${-dir * width}px)`
+      : "translateX(0px)";
+    nextEl.style.transform = doCommit
+      ? "translateX(0px)"
+      : `translateX(${dir * width}px)`;
+
+    setTimeout(() => {
+      currentEl && (currentEl.style.transition = "");
+      nextEl && (nextEl.style.transition = "");
+      done();
+    }, 190);
+  };
+
+  container.addEventListener(
+    "touchend",
+    (e) => {
+      if (!dragging) return;
+
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - startX;
+      const dt = Math.max(1, performance.now() - startT);
+      const velocity = Math.abs(dx) / dt;
+
+      // ✅ commit solo se abbiamo davvero una pagina target pronta
+      const commit =
+        !!nextEl && (Math.abs(dx) > THRESHOLD || velocity > VELOCITY_BREAK);
+      cleanupAndCommit(commit);
+    },
+    { passive: true }
+  );
+
+  container.addEventListener(
+    "touchstart",
+    (e) => {
+      if (IS_LOADING) return; // se stai già caricando, ignora
+      if (dragging) return;
+
+      const touch = e.changedTouches[0];
+      startX = touch.clientX;
+      startT = performance.now();
+      dragging = true;
+      width = container.clientWidth;
+
+      currentEl = container.querySelector(".page-view");
+      if (currentEl) {
+        currentEl.style.willChange = "transform";
+        currentEl.style.transform = "translateX(0px)";
+      }
+      dir = 0;
+      targetPage = null;
+      nextEl = null;
+    },
+    { passive: true }
+  );
+
+  container.addEventListener(
+    "touchmove",
+    async (e) => {
+      if (!dragging || !currentEl) return;
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - startX;
+
+      // scegli direzione al primo movimento orizzontale significativo
+      if (dir === 0 && Math.abs(dx) > 8) {
+        dir = dx > 0 ? -1 : +1; // dx>0 → trascino a destra → voglio pagina precedente (dir=-1)
+        targetPage = dir === +1 ? nextRoute(APP_ROUTE) : prevRoute(APP_ROUTE);
+
+        if (!targetPage) {
+          // bordo lista: non c’è pagina; blocca swipe
+          dir = 0;
+          return;
+        }
+
+        // precarica pagina target (una sola volta)
+        try {
+          const html = await fetchPage(targetPage);
+          // posizionamento iniziale: fuori dallo schermo nella direzione giusta
+          const initialOffset = dir * width;
+          attachNextLayer(html, initialOffset);
+        } catch (err) {
+          if (APP_DEBUG.SHOWCONSOLELOG) {
+            console.warn("[swipe] preload fallito:", err);
+          }
+          dir = 0;
+          targetPage = null;
+          return;
+        }
+      }
+
+      if (dir === 0 || !nextEl) return; // nessuna pagina target
+
+      // limita trascinamento per non “sparare” oltre
+      const clamped = Math.max(-width, Math.min(width, dx));
+
+      // muovi entrambi i layer
+      currentEl.style.transform = `translateX(${clamped}px)`;
+      nextEl.style.transform = `translateX(${dir * width + clamped}px)`;
+    },
+    { passive: true }
+  );
+
+  container.addEventListener(
+    "touchcancel",
+    () => {
+      cleanupAndCommit(false);
+    },
+    { passive: true }
+  );
+}
 
 // Funzione che avvia tutta l'app lato UI:
 // 1. carica layout base (header/footer/...)
@@ -464,7 +685,7 @@ function bootstrapUI() {
       if (!APP_DEBUG.BLOCCA_LOGINIZIALE) {
         // header e footer ORA esistono nel DOM
         setupNavListeners();
-
+        setupSwipeNavigation();
         setTimeout(() => {
           showDeviceReadyMessage();
         }, TIMEOUT_TIME - TIMEOUT_TIME / 4);

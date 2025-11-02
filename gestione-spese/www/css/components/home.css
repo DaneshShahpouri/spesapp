@@ -51,10 +51,12 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #000; /* opzionale per far risaltare il bordo */
-  background-color: var(--bg-img-bg); /* opzionale per far risaltare il bordo */
+  background-color: var(--bg-img-bg);
+  opacity: 1;
+  transition: filter 0.2s ease; /* per effetto più fluido */
+}
+#account-settings ._wrapper-img img.default {
   opacity: var(--opacity-img);
-  filter: invert(1);
 }
 
 /* --- animazione dell'onda dorata --- */
@@ -177,11 +179,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-/* Darkmode img standard utente */
-body.dark #avatarPreview {
-  filter: invert(1) !important;
 }
 
 .wrapper_butn ._wrapper-icon {

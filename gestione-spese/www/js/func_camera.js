@@ -97,22 +97,30 @@ function applyAvatar(localPath) {
   const img = document.getElementById("avatarPreview");
   const btnRemove = document.getElementById("btnRemovePhoto");
 
-  // Aggiorna l'immagine
-  if (img) img.src = localPath || "";
+  // Se non c’è un path valido, usa quello di default
+  const isDefault = !localPath || localPath.length === 0;
+  const src = isDefault ? "./img/user.jpg" : localPath;
 
-  // Mostra/nascondi il bottone di rimozione
-  if (btnRemove) {
-    if (localPath && localPath.length > 0) {
-      btnRemove.style.display = "inline-flex"; // o "block" se preferisci
+  if (img) {
+    img.src = src;
+    // Applica filtro solo all'immagine di default
+    img.style.filter = isDefault ? "invert(1)" : "none";
+    if (isDefault) {
+      img.classList.add("default");
     } else {
-      btnRemove.style.display = "none";
+      img.classList.remove("default");
     }
   }
 
-  // Stato in RAM
+  // Mostra o nascondi il pulsante di rimozione
+  if (btnRemove) {
+    btnRemove.style.display = isDefault ? "none" : "inline-flex";
+  }
+
+  // Aggiorna lo stato in RAM
   CURRENT_APP_DATA = CURRENT_APP_DATA || {};
   CURRENT_APP_DATA.profile = CURRENT_APP_DATA.profile || {};
-  CURRENT_APP_DATA.profile.avatarPath = localPath;
+  CURRENT_APP_DATA.profile.avatarPath = isDefault ? null : localPath;
 }
 
 // Flusso completo: scegli/scatta -> copia -> salva -> mostra
