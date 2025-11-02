@@ -10,12 +10,66 @@
   border-radius: 50%;
   position: relative;
 }
+
 #account-settings ._wrapper-img > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
+
+#account-settings ._wrapper-img {
+  width: 110px;
+  height: 110px;
+  margin: 0.5em auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+
+  /* --- bordo dorato animato --- */
+  padding: 3px; /* spessore del bordo */
+  background: linear-gradient(
+    120deg,
+    #ffd700,
+    #ffae00,
+    #fff1a6,
+    #ffd700,
+    #ffae00
+  );
+  background-size: 400% 400%;
+  animation: goldWave 6s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  border: none;
+}
+
+/* immagine interna */
+#account-settings ._wrapper-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #000; /* opzionale per far risaltare il bordo */
+  background-color: var(--bg-img-bg); /* opzionale per far risaltare il bordo */
+  opacity: var(--opacity-img);
+  filter: invert(1);
+}
+
+/* --- animazione dell'onda dorata --- */
+@keyframes goldWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 #account-settings ._wrapper-img-btns {
   width: 110px;
   height: 100%;
@@ -29,6 +83,7 @@
 #account-settings ._wrapper-img-btns .btn_account {
   position: absolute;
 }
+
 #account-settings ._wrapper-img-btns #btnTakePhoto {
   display: flex;
   left: 0px;
@@ -37,7 +92,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #ffffff40;
+  background: var(--bg-btn-photo);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +100,21 @@
   z-index: 21;
   color: var(--text-main);
   border: 1px solid var(--border-slider-darkmode);
+  transition: all 0.2s;
+  cursor: pointer;
 }
+
+#account-settings ._wrapper-img-btns #btnTakePhoto:hover {
+  box-shadow: 1px 1px 9px #00000057;
+}
+
+#account-settings ._wrapper-img-btns #btnTakePhoto:active {
+  box-shadow: 0px 0px 0px #00000000;
+  background: rgba(19, 19, 44, 0.49);
+
+  color: #424040;
+}
+
 #account-settings ._wrapper-img-btns #btnPickPhoto {
   top: 50%;
   width: 110px;
@@ -57,6 +126,7 @@
   z-index: 20;
   opacity: 0;
 }
+
 #account-settings ._wrapper-img-btns #btnRemovePhoto {
   top: 30px;
   width: 30px;
@@ -66,23 +136,98 @@
   transform: translate(-50%, -50%);
   left: 110px;
   z-index: 20;
-  background: #ff000094;
+  background: #ff000024;
   display: flex;
-  border: 2px solid red;
+  border: 2px solid #ff0000;
   justify-content: center;
   align-items: center;
-  font-size: 2em;
-  color: var(--text-main);
+  font-size: 0.7em;
+  color: #ff0000;
+  transition: all 0.3s;
+  cursor: pointer;
 }
+
+#account-settings ._wrapper-img-btns #btnRemovePhoto:active {
+  background: #590000ba;
+  border: 2px solid #a70000;
+  color: #000000;
+}
+
 .nomecontatto {
   padding: 0.2em 1em;
-  font-size: 1em;
+  font-size: 1.2em;
   color: var(--text-main);
   background: transparent;
   border: none;
-  box-shadow: 0px 0px 6px var(--color-shadow);
+  box-shadow: 0px 0px 6px #00000000;
   margin-bottom: 7px;
   border-radius: 20px;
   text-align: center;
   width: 100%;
+}
+
+.wrapper_saldo_disponibile {
+  font-size: 2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#footer-date {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Darkmode img standard utente */
+body.dark #avatarPreview {
+  filter: invert(1) !important;
+}
+
+.wrapper_butn ._wrapper-icon {
+  border: 1px solid #8080800d;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  border-radius: 50%;
+  transition: all 0.2s;
+  background-color: transparent;
+}
+.wrapper_butn ._wrapper-icon:hover {
+  background-color: var(--bg-generic_trasparent);
+  cursor: pointer;
+}
+.wrapper_saldo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+#addPay_home {
+  width: 200px;
+  height: 60px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px;
+  margin: 0;
+  margin-top: 1.1em;
+  font-size: 0.9em;
+  gap: 0.4em;
+  transition: all 0.2s;
+}
+#addPay_home:hover {
+  background: #8080805c;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
 }

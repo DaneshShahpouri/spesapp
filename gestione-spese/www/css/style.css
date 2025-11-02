@@ -13,14 +13,24 @@
 :root {
   --bg-page: #ffffff;
   --bg-nav: #f5f5f540;
+  --bg-img-bg: #d3dfdf;
   --bg-menu-mobile: #d6eaefe0;
+  --bg-generic_trasparent: rgba(240, 240, 240, 0.51);
   --bg-body: linear-gradient(to top, #d9e9df 0%, #b1c6ce 51%);
+  --bg-btn-photo: #e7e7e7;
+  --bg-card-swal: linear-gradient(to top, #d9e9df 0%, #b1c6ce 51%);
+
+  --text-swal-btn: #cfcfcf;
 
   --color-shadow: #00000042;
   --text-shadow: 1px 1px 2px black;
   --box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.29);
   --text-main-activate: #057ea5;
+  --text-main-activate-hover: #18a1cf;
   --text-main-activate-transparency: #057da574;
+  /* Success */
+  --text-main-success: #14944c;
+  --text-main-success-transparency: #12854495;
   --text-main-nav: #758795;
 
   --opacity-icon-page: 0.15;
@@ -34,21 +44,31 @@
   --bg-hover-header: rgba(14, 83, 144, 0.085);
 
   --border-slider-darkmode: rgba(50, 50, 50, 0.147);
+  --opacity-img: 0.2;
 }
 
 /* darkmode manuale */
 body.dark {
   --bg-page: #0f172a;
   --bg-nav: #070b11;
+  --bg-img-bg: #343940;
   --bg-menu-mobile: #111111e0;
   --bg-menu-mobile: radial-gradient(#06080ae3, #06080af7 60%);
+  --bg-generic_trasparent: rgb(114 114 114 / 51%);
   --bg-body: linear-gradient(to bottom, #081420 0%, #131313 51%);
+  --bg-btn-photo: #4b4b4f;
+  --bg-card-swal: linear-gradient(to top, #1a1818 0%, #1a1a1f 51%);
+  --text-swal-btn: #cfcfcf;
 
   --color-shadow: #00000042;
   --text-shadow: 0px 0px 0px transparent;
   --box-shadow: 0px 0px 0px transparent;
   --text-main-activate: #00a6ff;
+  --text-main-activate-hover: #00ccff;
   --text-main-activate-transparency: #00a6ff71;
+  /* Success */
+  --text-main-success: #14944c;
+  --text-main-success-transparency: #12854495;
   --text-main-nav: #bbbbbb;
 
   --opacity-icon-page: 0.05;
@@ -62,6 +82,7 @@ body.dark {
   --bg-hover-header: rgba(240, 248, 255, 0.085);
 
   --border-slider-darkmode: rgba(197, 197, 197, 0.147);
+  --opacity-img: 0.6;
 }
 
 /* tema dark automatico */

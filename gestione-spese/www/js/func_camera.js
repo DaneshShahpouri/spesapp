@@ -95,7 +95,20 @@ function getAvatarPathFromDB() {
 // Aggiorna lo stato e la preview
 function applyAvatar(localPath) {
   const img = document.getElementById("avatarPreview");
+  const btnRemove = document.getElementById("btnRemovePhoto");
+
+  // Aggiorna l'immagine
   if (img) img.src = localPath || "";
+
+  // Mostra/nascondi il bottone di rimozione
+  if (btnRemove) {
+    if (localPath && localPath.length > 0) {
+      btnRemove.style.display = "inline-flex"; // o "block" se preferisci
+    } else {
+      btnRemove.style.display = "none";
+    }
+  }
+
   // Stato in RAM
   CURRENT_APP_DATA = CURRENT_APP_DATA || {};
   CURRENT_APP_DATA.profile = CURRENT_APP_DATA.profile || {};
@@ -133,7 +146,6 @@ async function handleRemoveAvatar() {
 
 // Elimina un file locale dato l’URL (file:///…)
 function deleteLocalFile(fileUrl) {
-  console.log("fileUrl", fileUrl);
   return new Promise((resolve, reject) => {
     window.resolveLocalFileSystemURL(
       fileUrl,
@@ -154,7 +166,7 @@ function deleteLocalFile(fileUrl) {
 // Inizializza i bottoni e carica l’avatar salvato all’avvio
 function initProfileSection() {
   const btnTake = document.getElementById("btnTakePhoto");
-  console.log("botton take", btnTake);
+
   const btnPick = document.getElementById("btnPickPhoto");
   const btnRemove = document.getElementById("btnRemovePhoto");
 
@@ -172,7 +184,6 @@ function initProfileSection() {
 // dentro runPageController('settings') o simile:
 function initSettingsPage_camera() {
   // ...il tuo codice esistente...
-  console.log("parte effettivamente");
   initProfileSection();
 }
 

@@ -27,6 +27,11 @@ function buildInitialAppData(speseArray, settingsObj) {
     settings: {
       theme: settingsObj && settingsObj.theme ? settingsObj.theme : "light",
       nome: (settingsObj && settingsObj.nome) || "",
+      saldo_visibile:
+        settingsObj && typeof settingsObj.saldo_visibile !== "undefined"
+          ? settingsObj.saldo_visibile === true ||
+            settingsObj.saldo_visibile === "true"
+          : true,
     },
   };
 }
@@ -216,6 +221,10 @@ function getSettings(db) {
     store.get("nomeUtente").onsuccess = (e) => {
       const r = e.target.result;
       if (r && typeof r.value !== "undefined") out.nome = r.value;
+    };
+    store.get("saldo_visibile").onsuccess = (e) => {
+      const r = e.target.result;
+      if (r && typeof r.value !== "undefined") out.saldo_visibile = r.value;
     };
 
     tx.oncomplete = () => resolve(out);
@@ -583,7 +592,7 @@ function saveGenericData(storeName, key, value) {
 
     try {
       // 2) transazione readwrite sullo store
-      console.log("provo");
+
       const tx = db.transaction(storeName, "readwrite");
       const store = tx.objectStore(storeName);
 
@@ -613,4 +622,98 @@ function saveGenericData(storeName, key, value) {
       reject(err);
     }
   });
+}
+
+//Nascondi tutti gli elementi con classe valore-nascosto il contenuto con ****
+function toggleSaldoVisibility(show) {
+  const elems = document.querySelectorAll(".valore-nascosto");
+  const icon = document.querySelector("#btn-saldo_visibile > i");
+
+  // Se il bottone non è ancora nel DOM, esci senza errore
+  if (!icon) {
+    console.warn("⚠️ toggleSaldoVisibility: icona non trovata nel DOM");
+    return;
+  }
+
+  if (show === true || show === "true") {
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  } else {
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  }
+
+  elems.forEach((el) => {
+    if (show === true || show === "true") {
+      // ripristina valore originale
+      const original = el.getAttribute("data-original");
+      if (original) el.textContent = original;
+    } else {
+      // salva valore attuale solo se non già salvato
+      if (!el.getAttribute("data-original")) {
+        el.setAttribute("data-original", el.textContent);
+      }
+      // sostituisci con asterischi
+      el.textContent = "••••••";
+    }
+  });
+}
+
+//Funzione per restituire tutte le date in tutti i formati
+// Funzione per restituire tutte le date in tutti i formati
+// Funzione per restituire tutte le date in tutti i formati
+function getDateInfo_start() {
+  const now = new Date();
+
+  // Giorni e mesi in italiano
+  const giorniSettimana = [
+    "Domenica",
+    "Lunedì",
+    "Martedì",
+    "Mercoledì",
+    "Giovedì",
+    "Venerdì",
+    "Sabato",
+  ];
+
+  const mesi = [
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ];
+
+  // Estrai i valori
+  const giornoSettimana = giorniSettimana[now.getDay()];
+  const giornoNumero = now.getDate();
+  const meseIndice = now.getMonth(); // 0-based
+  const mese = mesi[meseIndice];
+  const meseNumero = String(meseIndice + 1).padStart(2, "0"); // <-- zero davanti
+  const giornoNumeroPad = String(giornoNumero).padStart(2, "0"); // <-- zero davanti
+  const anno = now.getFullYear();
+
+  // Ora e minuti formattati a 2 cifre
+  const ora = String(now.getHours()).padStart(2, "0");
+  const minuti = String(now.getMinutes()).padStart(2, "0");
+
+  return {
+    giornoSettimana,
+    giornoNumero,
+    giornoNumeroPad, // es. "09"
+    mese,
+    meseNumero, // es. "03"
+    anno,
+    ora,
+    minuti,
+    stringaCompleta: `${giornoSettimana} ${giornoNumeroPad} ${mese} ${anno}, ${ora}:${minuti}`,
+    dataISO: `${anno}-${meseNumero}-${giornoNumeroPad}`, // formato standard ISO
+  };
 }

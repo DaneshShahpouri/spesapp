@@ -30,8 +30,12 @@
         -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
+      content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval';
+               script-src 'self' https://cdn.jsdelivr.net;
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data: content:;"
     />
+
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta
@@ -50,6 +54,7 @@
     <link rel="stylesheet" href="css/components/home.css" />
     <link rel="stylesheet" href="css/css-utiliy/bootstrap.css" />
     <link rel="stylesheet" href="css/css-utiliy/mediaquery.css" />
+    <link rel="stylesheet" href="css/css-utiliy/swal.css" />
     <title>Hello World</title>
   </head>
   <body>
@@ -84,5 +89,9 @@
     <script src="js/index.js"></script>
     <!-- Bootstrap dell'app -->
     <script src="js/start.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="js/lib/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
   </body>
 </html>

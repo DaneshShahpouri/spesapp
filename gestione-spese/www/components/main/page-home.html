@@ -1,45 +1,67 @@
 <div class="title-icon"><i class="fa-solid fa-house"></i></div>
 
-<div class="_container" id="account-settings">
-  <!-- CARD LEFT -->
-  <div class="top-bar _card _col-6">
-    <div class="profile-photo">
-      <div class="welcome">
-        <input
-          id="nomeContatto_benvenuto"
-          class="nomecontatto"
-          type="text"
-          placeholder="Nome Contatto"
-          value=""
-        />
-      </div>
-      <!-- wrapper all -->
-      <div class="_wrapper-img-btns">
-        <!-- IMG -->
-        <div class="_wrapper-img">
-          <img id="avatarPreview" src="./img/favicoin.png" alt="Avatar" />
+<div class="_container _grid" id="account-settings">
+  <div class="_card _grid">
+    <!-- CARD LEFT -->
+    <div class="top-bar _col-5">
+      <div class="profile-photo">
+        <div class="welcome">
+          <input
+            id="nomeContatto_benvenuto"
+            class="nomecontatto"
+            type="text"
+            placeholder="Nome Contatto"
+            value=""
+          />
         </div>
-        <!-- BTNS -->
+        <!-- wrapper all -->
+        <div class="_wrapper-img-btns">
+          <!-- IMG -->
+          <div class="_wrapper-img">
+            <img id="avatarPreview" src="./img/user.jpg" alt="Avatar" />
+          </div>
+          <!-- BTNS -->
 
-        <button class="btn_account" id="btnTakePhoto">
-          <i class="fa-solid fa-camera"></i>
-        </button>
-        <button class="btn_account" id="btnPickPhoto">
-          Scegli dalla galleria
-        </button>
-        <button class="btn_account" id="btnRemovePhoto">
-          <i class="fa-solid fa-minus"></i>
-        </button>
+          <button class="btn_account" id="btnTakePhoto">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+          <button class="btn_account" id="btnPickPhoto">
+            Scegli dalla galleria
+          </button>
+          <button class="btn_account" id="btnRemovePhoto" style="display: none">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+        </div>
+        <!-- fine wrapper -->
       </div>
-      <!-- fine wrapper -->
+    </div>
+
+    <!-- MAIN -->
+    <div class="wrapper_saldo _col-7">
+      <!-- Saldo Disponibile -->
+      <div class="wrapper_saldo_disponibile">
+        <!-- <span>Saldo:</span> -->
+        <div class="wrapper_butn" style="display: flex; gap: 0.3em">
+          <div id="el_nascondibile_saldo">
+            <span
+              class="valore-nascosto"
+              id="saldo_disponibile"
+              style="font-size: 0.8em; padding: 0px 8px; font-weight: 100"
+              >0.00</span
+            >€
+          </div>
+          <div class="_wrapper-icon" id="btn-saldo_visibile">
+            <i class="fa-solid fa-eye"></i>
+          </div>
+        </div>
+      </div>
+      <!--fine Saldo Disponibile -->
+
+      <div id="footer-date"></div>
+      <div id="addPay_home">
+        <i class="fa-solid fa-plus"></i>
+        <div id="span_aggiungi_btn_home">Aggiungi</div>
+      </div>
     </div>
   </div>
-
-  <!-- MAIN -->
-  <div class="_card _col-6">
-    <div class="main"></div>
-    <div class="footer"></div>
-  </div>
 </div>
-
-<style></style>

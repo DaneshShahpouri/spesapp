@@ -51,12 +51,17 @@ const KEY_AVATAR_PATH = "avatarPath"; // salveremo qui il path locale
 const STORE_SPESE = DB_CONFIG.stores.spese.name;
 
 // stato di routing corrente
-let IS_MOBILE = false; // schermata iniziale di default
-let APP_ROUTE = "home2"; // schermata iniziale di default
-let IS_LOADING = false; // sto caricando
-let TIMEOUT_TIME = 1700; // tempo di timeout per aprire app
+var IS_MOBILE = false; // schermata iniziale di default
+var APP_ROUTE = "home2"; // schermata iniziale di default
+var IS_LOADING = false; // sto caricando
+var TIMEOUT_TIME = 1700; // tempo di timeout per aprire app
 
-let CURRENT_APP_DATA = {
+var DATEDB = {
+  INTERVALTIME_CHECK: 5000,
+  INTERVALTIME_MIN: 1000 * 60,
+};
+
+var CURRENT_APP_DATA = {
   spese: [],
   metaSpese: {
     primaVolta: true,
@@ -65,6 +70,8 @@ let CURRENT_APP_DATA = {
   },
   settings: {
     theme: "light",
+    nome: "Nome Cognome",
+    saldo_visibile: "true",
   },
 };
 // ---------------------------------------------

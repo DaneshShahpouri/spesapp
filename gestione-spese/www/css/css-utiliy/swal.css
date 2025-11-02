@@ -1,0 +1,119 @@
+/* ==========================================
+   SWEETALERT2 THEME – Minimal Flat Gold
+   Usa le variabili globali già definite:
+   --bg-card-swal, --text-main, --text-main-activate, --text-main-activate-hover
+   ========================================== */
+
+/* ---------- STRUTTURA BASE POPUP ---------- */
+.swal2-popup {
+  background: var(--bg-card-swal);
+  color: var(--text-main) !important;
+  border: none !important;
+  border-radius: 0 !important; /* rimuove tutti gli angoli */
+  box-shadow: 0 0 30px var(--text-main-activate-transparency);
+  padding: 2em 2.5em;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------- TITOLO ---------- */
+.swal2-title {
+  color: var(--text-main-activate);
+  font-size: 1.4em;
+  text-shadow: 0 0 6px var(--text-main-activate-transparency);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  border-radius: 0;
+  border: none;
+}
+
+/* ---------- TESTO ---------- */
+.swal2-html-container {
+  color: var(--text-main) !important;
+  font-size: 1em;
+  opacity: 0.85;
+  margin-bottom: 1.5em;
+}
+
+/* ---------- ICONA ---------- */
+.swal2-icon {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0.8em;
+}
+
+/* ---------- BOTTONI ---------- */
+.swal2-actions {
+  gap: 0.6em;
+}
+
+/* Bottone principale (confirm) */
+.swal2-confirm {
+  background: var(--text-main-activate) !important;
+  color: var(--text-swal-btn) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-weight: bold !important;
+  padding: 0.7em 1.6em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.swal2-confirm:hover {
+  background: var(--text-main-activate-hover) !important;
+  transform: translateY(-1px);
+}
+
+/* Bottone secondario (cancel) */
+.swal2-cancel {
+  background: transparent !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--text-main-activate-transparency) !important;
+  border-radius: 0 !important;
+  padding: 0.7em 1.6em !important;
+  transition: all 0.2s ease;
+}
+
+.swal2-cancel:hover {
+  color: var(--text-main-activate) !important;
+  border-color: var(--text-main-activate-hover) !important;
+}
+
+/* ---------- INPUT (quando usi Swal con input) ---------- */
+.swal2-input {
+  background: var(--bg-card-swal) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--text-main-activate-transparency) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.swal2-input:focus {
+  outline: none !important;
+  border-color: var(--text-main-activate) !important;
+  box-shadow: 0 0 5px var(--text-main-activate-transparency);
+}
+
+/* ---------- BARRA DI PROGRESSO (timer) ---------- */
+.swal2-timer-progress-bar {
+  background: var(--text-main-activate) !important;
+  height: 3px;
+  border-radius: 0 !important;
+}
+
+/* Colore principale dell'icona success */
+.swal2-icon.swal2-success {
+  border-color: var(--text-main-success) !important;
+}
+
+/* Linee animate del check */
+.swal2-icon.swal2-success .swal2-success-line-tip,
+.swal2-icon.swal2-success .swal2-success-line-long {
+  background-color: var(--text-main-success) !important;
+}
+
+/* Cerchio esterno */
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: var(--text-main-success-transparency) !important;
+}
